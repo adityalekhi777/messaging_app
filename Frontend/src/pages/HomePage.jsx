@@ -71,9 +71,15 @@ const HomePage = () => {
   }, [selectedUser]);
 
   useEffect(() => {
+    if (socket && currentUser) {
+      socket.emit('addUser', currentUser.id);
+    }
+  }, [socket, currentUser]);
+
+  useEffect(() => {
     if (socket) {
       socket.on('newMessage', (message) => {
-        if (selectedUser && (message.senderId === selectedUser.id || message.senderId === currentUser.id)) {
+        if (selectedUser && message.senderId === selectedUser.id) {
           setMessages((prevMessages) => [...prevMessages, message]);
         }
       });
@@ -82,7 +88,7 @@ const HomePage = () => {
         socket.off('newMessage');
       };
     }
-  }, [socket, selectedUser, currentUser]);
+  }, [socket, selectedUser]);
 
   const handleSendMessage = async (e) => {
     e.preventDefault();
