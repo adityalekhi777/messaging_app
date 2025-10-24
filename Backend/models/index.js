@@ -15,5 +15,12 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.User = require('./user.js')(sequelize, Sequelize);
+db.Message = require('./message.js')(sequelize, Sequelize);
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
 
 module.exports = db;
