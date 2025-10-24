@@ -33,31 +33,33 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signupContainer}>
-      <form className={styles.signupForm} onSubmit={handleSubmit}>
-        <h2>Sign Up</h2>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
-        {error && <p className={styles.error}>{error}</p>}
-      </form>
-    </div>
+    <>
+      <div className={styles.signupContainer}>
+        <form className={styles.signupForm} onSubmit={handleSubmit}>
+          <h2>Sign Up</h2>
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
+          {error && <p className={styles.error}>{error}</p>}
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -24,25 +24,27 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-        {error && <p className={styles.error}>{error}</p>}
-      </form>
-    </div>
+    <>
+      <div className={styles.loginContainer}>
+        <form className={styles.loginForm} onSubmit={handleSubmit}>
+          <h2>Login</h2>
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Login</button>
+          {error && <p className={styles.error}>{error}</p>}
+        </form>
+      </div>
+    </>
   );
 };
 

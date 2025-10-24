@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HomePage.module.css';
+import MainNavbar from '../components/MainNavbar/MainNavbar';
 
 const HomePage = () => {
   const [users, setUsers] = useState([]);
@@ -60,6 +61,7 @@ const HomePage = () => {
         </div>
       </div>
       <div className={styles['right-pane']}>
+        <MainNavbar />
         {selectedUser ? (
           <>
             <div className={styles['chat-header']}>{selectedUser.username}</div>
