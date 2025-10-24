@@ -1,0 +1,112 @@
+/* HomePage.module.css */
+
+.home-container {
+    display: flex;
+    height: 100vh;
+    background-color: #1a1a1a; /* Dark background */
+    color: #fff; /* Light text */
+  }
+  
+  .left-pane {
+    width: 30%;
+    border-right: 1px solid #333; /* Darker border */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .search-bar {
+    padding: 10px;
+    border-bottom: 1px solid #333; /* Darker border */
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #555; /* Darker border */
+    background-color: #333; /* Dark input background */
+    color: #fff; /* Light text */
+  }
+  
+  .user-list {
+    overflow-y: auto;
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+  }
+  
+  .user-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 10px;
+    width: 100px;
+    height: 120px;
+    text-align: center;
+    word-break: break-word;
+  }
+  
+  .user-profile:hover {
+    background-color: #2a2a2a; /* Slightly lighter on hover */
+  }
+  
+  .user-profile.selected {
+    background-color: #007bff; /* Accent color for selected user */
+  }
+  
+  .user-profile > span:first-child {
+    font-size: 60px;
+    margin-bottom: 10px;
+    color: #007bff;
+  }
+  
+  .right-pane {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-header {
+    padding: 15px;
+    border-bottom: 1px solid #333; /* Darker border */
+    font-weight: bold;
+    background-color: #2a2a2a; /* Slightly lighter background */
+  }
+  
+  .chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chat-input {
+    padding: 20px;
+    border-top: 1px solid #333; /* Darker border */
+  }
+  
+  .chat-input input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px; /* Rounded input */
+    border: 1px solid #555; /* Darker border */
+    background-color: #333; /* Dark input background */
+    color: #fff; /* Light text */
+  }
+  
+  .select-chat-prompt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.2rem;
+    color: #888; /* Lighter text for the prompt */
+  }

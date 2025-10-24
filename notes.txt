@@ -1,1 +1,0 @@
-Backend create a backedend with express jwt and bcrypt, and mysql and Sequelize for the db , the backend shoul track and authenticate the users and create appropriate folders eg models routes etc
