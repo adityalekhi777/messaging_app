@@ -9,8 +9,10 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
   const socket = useSocket();
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null);
   const [currentUser, setCurrentUser] = useState(null);
 
 
@@ -90,13 +92,12 @@ const HomePage = () => {
     }
   }, [socket, selectedUser]);
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
+  const handleSendTextMessage = async () => {
     if (newMessage.trim() === '' || !selectedUser) return;
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3000/api/auth/messages', {
+      const response = await fetch('http://localhost:3000/api/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,6 +120,49 @@ const HomePage = () => {
     } catch (error) {
       console.error('Error sending message:', error);
     }
+  };
+
+  const handleFileUpload = async () => {
+    if (!selectedFile || !selectedUser) return;
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('recipientId', selectedUser.id);
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch('http://localhost:3000/api/messages/upload', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        const sentMessage = await response.json();
+        setMessages((prevMessages) => [...prevMessages, sentMessage]);
+        socket.emit('sendMessage', sentMessage);
+        setSelectedFile(null);
+      } else {
+        console.error('Failed to upload file');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (selectedFile) {
+      handleFileUpload();
+    } else {
+      handleSendTextMessage();
+    }
+  };
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
   };
 
   const filteredUsers = (users || []).filter((user) =>
@@ -159,12 +203,25 @@ const HomePage = () => {
             <div className={styles['chat-messages']}>
               {messages.map((message) => (
                 <div key={message.id} className={`${styles.message} ${message.senderId !== currentUser.id ? styles.received : styles.sent}`}>
-                  {message.content}
+                  {message.isMedia ? (
+                    <img src={message.content} alt="media" style={{ maxWidth: '200px', borderRadius: '10px' }} />
+                  ) : (
+                    message.content
+                  )}
                 </div>
               ))}
               <div ref={messagesEndRef} />
             </div>
             <form className={styles['chat-input']} onSubmit={handleSendMessage}>
+              <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+              <button type="button" onClick={() => fileInputRef.current.click()}>
+                <span className="material-symbols-outlined">attachment</span>
+              </button>
               <input
                 type="text"
                 placeholder="Type a message..."

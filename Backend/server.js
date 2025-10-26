@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./models');
@@ -68,7 +69,7 @@ io.on('connection', (socket) => {
   });
 });
 
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   server.listen(PORT, () => { // Use server.listen instead of app.listen
     console.log(`Server is running on port ${PORT}`);
   });

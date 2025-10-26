@@ -27,6 +27,10 @@ module.exports = (sequelize) => {
         key: 'id',
       },
     },
+    isMedia: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   });
 
   Message.associate = (models) => {
