@@ -51,7 +51,7 @@ const HomePage = () => {
       const fetchMessages = async () => {
         try {
           const token = localStorage.getItem('token');
-          const response = await fetch(`http://localhost:3000/api/auth/messages/${selectedUser.id}`, {
+          const response = await fetch(`http://localhost:3000/api/messages/${selectedUser.id}`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             },
